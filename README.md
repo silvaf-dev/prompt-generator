@@ -1,9 +1,9 @@
-# 📝 Prompt Builder
+# 📝 Prompt Generator
 
 A web-based tool to design structured prompts with clarity and consistency.  
 Inspired by Google’s [Prompting Essentials Specialization](https://www.coursera.org/specializations/prompting-essentials-google), this app helps you quickly create, format, and refine prompts for LLMs using a flexible template.  
 
-## 🚀 Features
+## 🚀 Features 
 - **Task definition**: Write your instruction, persona, and desired output format.
 - **Context builder**: Add background and constraints for precision.
 - **References support**: Include one-shot, few-shot, or guiding examples.
@@ -43,15 +43,15 @@ Generated:
 ## 🛠️ Getting Started
 1. Clone the repo:
    ```bash
-   git clone https://github.com/yourusername/prompt-builder.git
-   cd prompt-builder
+   git clone https://github.com/silvaf-dev/prompt-generator.git
+   cd prompt-generator
    ```
 2. Open `index.html` in your browser.  
    *(No build step, no dependencies — pure HTML, CSS, JS)*
 
-## 🌟 Why Prompt Builder?
+## 🌟 Why Prompt Generator?
 Crafting good prompts is half science, half art.  
-Prompt Builder gives you a **repeatable framework** to move from vague instructions to **clear, testable, and reusable** prompts.
+Prompt Generator gives you a **repeatable framework** to move from vague instructions to **clear, testable, and reusable** prompts.
 
 Mnemonic reminder: **T**houghtfully **C**reate **R**eally **E**xcellent **I**nputs ✅
 
