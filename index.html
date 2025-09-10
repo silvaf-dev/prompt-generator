@@ -1,165 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Prompt Builder</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 15px;
-      margin: 0;
-      max-width: 800px;
-    }
-    h1, h2 { margin-top: 0.5em; }
-    h2 { color: #003f82; }
-    h3 { color: #0061c9; }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 12px;
-      font-size: 1.1em;
-    }
-    textarea {
-      width: 100%;
-      min-height: 100px;
-      margin-bottom: 14px;
-      resize: none;
-      font-size: 1.1em;
-      padding: 10px;
-      box-sizing: border-box;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 14px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-      font-size: 1.1em;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      flex: 1 1 48%;
-      min-width: 120px;
-    }
-    button:active { background-color: #0056b3; }
-    pre {
-      background: #f5f5f5;
-      padding: 15px;
-      border-radius: 6px;
-      margin-top: 15px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      overflow: hidden;
-      font-size: 1em;
-    }
-    footer { font-size: 0.8em; font-style: italic; margin-top: 30px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-    @media (max-width: 600px) {
-      body { padding: 12px; }
-      textarea { font-size: 1.2em; min-height: 120px; }
-      button { font-size: 1.2em; padding: 16px; flex: 1 1 100%; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Prompt Generator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <h1>Prompt Builder</h1>
-  
-  <h2>Task</h2>
-  <textarea id="task"></textarea>
-  
-  <h3>Persona</h3>
-  <textarea id="persona"></textarea>
-  
-  <h3>Format</h3>
-  <textarea id="format"></textarea>
-  
-  <h2>Context</h2>
-  <textarea id="context"></textarea>
+    <h1>Prompt Generator</h1>
 
-  <h3>Constraints</h3>
-  <textarea id="constraints"></textarea>
-  
-  <h2>References (one per line)</h2>
-  <textarea id="references"></textarea>
-  
-  <div class="actions">
-    <button onclick="buildPrompt()">Generate Prompt</button>
-    <button onclick="copyOutput()">Copy Output</button>
-  </div>
-  
-  <h2>Generated Prompt</h2>
-  <pre id="output"></pre>
+    <p>All fields are optional, but the more you fill them in, the better. Imagine you're a film director and you're giving explicit instructions to an actor.</p>
 
-  <footer>
-    <p>This tool was inspired by Google's advice from the <a href="https://www.coursera.org/specializations/prompting-essentials-google" target="_blank">Google Prompting Essentials Specialization</a>.</p>
-    <p>Framework:</p>
-    <ul>
-      <li>Task (Persona / Format)</li>
-      <li>Context (Background + Constraints)</li>
-      <li>References</li>
-      <li>Evaluate</li>
-      <li>Iterate</li>
-    </ul>
-    <p>Mnemotechnics: <strong>T</strong>houghtfully <strong>C</strong>reate <strong>R</strong>eally <strong>E</strong>xcellent <strong>I</strong>nputs</p>
-  </footer>
+    <h2>Task</h2>
+    <textarea id="task"></textarea>
 
-  <script>
-    function buildPrompt() {
-      const task = document.getElementById("task").value.trim();
-      const persona = document.getElementById("persona").value.trim();
-      const format = document.getElementById("format").value.trim();
-      const context = document.getElementById("context").value.trim();
-      const constraints = document.getElementById("constraints").value.trim();
-      const referencesText = document.getElementById("references").value.trim();
-      const references = referencesText ? referencesText.split("\n") : [];
+    <h3>Persona</h3>
+    <textarea id="persona"></textarea>
 
-      let parts = [];
+    <h3>Format</h3>
+    <textarea id="format"></textarea>
 
-      if (task) {
-        let taskBlock = `<Task>\n  <Instruction>${task}</Instruction>`;
-        if (persona) taskBlock += `\n  <Persona>${persona}</Persona>`;
-        if (format) taskBlock += `\n  <Format>${format}</Format>`;
-        taskBlock += `\n</Task>`;
-        parts.push(taskBlock);
-      }
+    <h3>Tone</h3>
+    <textarea id="tone"></textarea>
 
-      if (context || constraints) {
-        let ctxBlock = `<Context>`;
-        if (context) ctxBlock += `\n  <Background>${context}</Background>`;
-        if (constraints) ctxBlock += `\n  <Constraints>${constraints}</Constraints>`;
-        ctxBlock += `\n</Context>`;
-        parts.push(ctxBlock);
-      }
+    <h2>Context</h2>
+    <textarea id="context"></textarea>
 
-      if (references.length > 0) {
-        let refBlock = "<References>\n";
-        references.forEach((ref, i) => {
-          refBlock += `  <Example id="${i+1}">${ref}</Example>\n`;
-        });
-        refBlock += "</References>";
-        parts.push(refBlock);
-      }
+    <h3>Constraints</h3>
+    <textarea id="constraints"></textarea>
 
-      const result = parts.join("\n\n");
-      const output = document.getElementById("output");
-      output.textContent = result;
+    <h2>References (one per line)</h2>
+    <textarea id="references"></textarea>
 
-      // Auto-adjust height by content
-      output.style.height = "auto";  
-      output.style.height = output.scrollHeight + "px";
-    }
+    <div class="actions">
+        <button onclick="buildPrompt()">Generate Prompt</button>
+        <button onclick="copyOutput()">Copy Output</button>
+    </div>
 
-    function copyOutput() {
-      const output = document.getElementById("output").textContent;
-      if (!output) {
-        console.log("Nothing to copy yet! Generate a prompt first.");
-        return;
-      }
-      navigator.clipboard.writeText(output)
-        .then(() => console.log("Prompt copied to clipboard ✅"))
-        .catch(() => console.log("Failed to copy ❌"));
-    }
-  </script>
+    <h2>Generated Prompt</h2>
+    <pre id="output"></pre>
+
+    <footer>
+        <p>This tool was inspired by Google's advice from the <a
+                href="https://www.coursera.org/specializations/prompting-essentials-google" target="_blank">Google
+                Prompting Essentials Specialization</a>.</p>
+        <p>Framework:</p>
+        <ul>
+            <li>Task (Persona / Format / Tone)</li>
+            <li>Context (Background / Constraints)</li>
+            <li>References</li>
+            <li>Evaluate</li>
+            <li>Iterate</li>
+        </ul>
+        <p>Mnemotechnics: <strong>T</strong>houghtfully <strong>C</strong>reate <strong>R</strong>eally
+            <strong>E</strong>xcellent <strong>I</strong>nputs</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
