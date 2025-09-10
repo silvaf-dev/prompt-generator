@@ -13,8 +13,8 @@ Inspired by Google’s [Prompting Essentials Specialization](https://www.courser
 
 ## 📂 Project Structure
 - `index.html` → Main app (all-in-one, no external dependencies).
-- `style` (inline CSS) → Clean, responsive UI.
-- `script` (inline JS) → Handles prompt generation & copy functionality.
+- `styles.css` → Clean, responsive UI.
+- `script.js` → Handles prompt generation & copy functionality.
 
 ## 💡 Example Output
 Input:
