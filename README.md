@@ -3,6 +3,8 @@
 A web-based tool to design structured prompts with clarity and consistency.  
 Inspired by Google’s [Prompting Essentials Specialization](https://www.coursera.org/specializations/prompting-essentials-google), this app helps you quickly create, format, and refine prompts for LLMs using a flexible template.  
 
+Available at https://silvaf-dev.github.io/prompt-generator/
+
 ## 🚀 Features 
 - **Task definition**: Write your instruction, persona, and desired output format.
 - **Context builder**: Add background and constraints for precision.
